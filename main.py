@@ -1,5 +1,28 @@
 
-tasks = []
+import json
+import os
+
+FILE_NAME = "tasks.json"
+
+
+def load_tasks():
+    if os.path.exists(FILE_NAME):
+        try:
+            with open(FILE_NAME, "r", encoding="utf-8") as file:
+                return json.load(file)
+        except json.JSONDecodeError:
+            print("Warning: Tasks file is empty or invalid.")
+            return []
+
+    return []
+
+
+def save_tasks():
+    with open(FILE_NAME, "w", encoding="utf-8") as file:
+        json.dump(tasks, file, ensure_ascii=False, indent=4)
+
+
+tasks = load_tasks()
 
 
 def show_menu():
@@ -16,9 +39,10 @@ def add_task():
 
     if task.strip():
         tasks.append({
-            "title": task,
+            "title": task.strip(),
             "completed": False
         })
+        save_tasks()
         print("Task added successfully!")
     else:
         print("Task cannot be empty.")
@@ -47,6 +71,7 @@ def delete_task():
 
         if 1 <= task_number <= len(tasks):
             removed_task = tasks.pop(task_number - 1)
+            save_tasks()
             print(f"Task '{removed_task['title']}' deleted successfully!")
         else:
             print("Invalid task number.")
@@ -66,6 +91,7 @@ def mark_completed():
 
         if 1 <= task_number <= len(tasks):
             tasks[task_number - 1]["completed"] = True
+            save_tasks()
             print("Task marked as completed!")
         else:
             print("Invalid task number.")
