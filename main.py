@@ -36,6 +36,25 @@ def show_tasks():
         print(f"{index}. {task['title']} - {status}")
 
 
+def delete_task():
+    show_tasks()
+
+    if not tasks:
+        return
+
+    try:
+        task_number = int(input("Enter task number to delete: "))
+
+        if 1 <= task_number <= len(tasks):
+            removed_task = tasks.pop(task_number - 1)
+            print(f"Task '{removed_task['title']}' deleted successfully!")
+        else:
+            print("Invalid task number.")
+
+    except ValueError:
+        print("Please enter a valid number.")
+
+
 def main():
     print("Welcome to Todo List App!")
 
@@ -48,6 +67,9 @@ def main():
 
         elif choice == "2":
             show_tasks()
+
+        elif choice == "3":
+            delete_task()
 
         elif choice == "5":
             print("Goodbye!")
