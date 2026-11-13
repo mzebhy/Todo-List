@@ -55,6 +55,25 @@ def delete_task():
         print("Please enter a valid number.")
 
 
+def mark_completed():
+    show_tasks()
+
+    if not tasks:
+        return
+
+    try:
+        task_number = int(input("Enter task number to complete: "))
+
+        if 1 <= task_number <= len(tasks):
+            tasks[task_number - 1]["completed"] = True
+            print("Task marked as completed!")
+        else:
+            print("Invalid task number.")
+
+    except ValueError:
+        print("Please enter a valid number.")
+
+
 def main():
     print("Welcome to Todo List App!")
 
@@ -71,12 +90,15 @@ def main():
         elif choice == "3":
             delete_task()
 
+        elif choice == "4":
+            mark_completed()
+
         elif choice == "5":
             print("Goodbye!")
             break
 
         else:
-            print("This feature will be added soon.")
+            print("Invalid choice. Please try again.")
 
 
 if __name__ == "__main__":
