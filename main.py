@@ -1,4 +1,7 @@
 
+tasks = []
+
+
 def show_menu():
     print("\n===== TODO LIST =====")
     print("1. Add a task")
@@ -8,6 +11,19 @@ def show_menu():
     print("5. Exit")
 
 
+def add_task():
+    task = input("Enter your task: ")
+
+    if task.strip():
+        tasks.append({
+            "title": task,
+            "completed": False
+        })
+        print("Task added successfully!")
+    else:
+        print("Task cannot be empty.")
+
+
 def main():
     print("Welcome to Todo List App!")
 
@@ -15,9 +31,13 @@ def main():
         show_menu()
         choice = input("Choose an option: ")
 
-        if choice == "5":
+        if choice == "1":
+            add_task()
+
+        elif choice == "5":
             print("Goodbye!")
             break
+
         else:
             print("This feature will be added soon.")
 
