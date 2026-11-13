@@ -24,6 +24,18 @@ def add_task():
         print("Task cannot be empty.")
 
 
+def show_tasks():
+    if not tasks:
+        print("No tasks found.")
+        return
+
+    print("\n===== YOUR TASKS =====")
+
+    for index, task in enumerate(tasks, start=1):
+        status = "Completed" if task["completed"] else "Not Completed"
+        print(f"{index}. {task['title']} - {status}")
+
+
 def main():
     print("Welcome to Todo List App!")
 
@@ -33,6 +45,9 @@ def main():
 
         if choice == "1":
             add_task()
+
+        elif choice == "2":
+            show_tasks()
 
         elif choice == "5":
             print("Goodbye!")
